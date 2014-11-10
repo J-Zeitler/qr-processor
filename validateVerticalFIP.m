@@ -1,4 +1,4 @@
-function valid = validateY(imageBW, candidate, ratioLimit)
+function valid = validateVerticalFIP(imageBW, candidate, ratioLimit)
   [height width] = size(imageBW);
   valid = true;
   directions = [-1 1];

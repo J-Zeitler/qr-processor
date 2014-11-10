@@ -1,2 +1,0 @@
-% Get template pictures
-training_1 = getImages('images/training/training_1/Bygg_', [], '.jpg');
