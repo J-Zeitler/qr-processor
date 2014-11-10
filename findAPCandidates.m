@@ -1,4 +1,4 @@
-function aps = findAPs(imageBW, toleranceFactor)
+function aps = findAPCandidates(imageBW, toleranceFactor, ySpan, xSpan)
   if (toleranceFactor > 0 && toleranceFactor < 1)
     tolerance = [1-toleranceFactor, 1/(1-toleranceFactor)];
   else
@@ -6,14 +6,11 @@ function aps = findAPs(imageBW, toleranceFactor)
   end
   aps = [];
 
-  height = size(imageBW,1);
-  width = size(imageBW,2);
-
-  for y = 1:height
+  for y = ySpan
     checkpoint = 0;
     patternSize = 0;
     counter = 0;
-    for x = 1:width
+    for x = xSpan
       pxl = imageBW(y,x);
       if (pxl == 0)
         % black
@@ -57,6 +54,7 @@ function aps = findAPs(imageBW, toleranceFactor)
             if (ratio < tolerance(1))
               checkpoint = 2;
               patternSize = counter;
+              counter = 1;
             else
               % WOOOW
               candidate = [y, round(x - patternSize * 1.5)];
@@ -69,7 +67,5 @@ function aps = findAPs(imageBW, toleranceFactor)
       end
     end
   end
-
-
 end
 
