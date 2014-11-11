@@ -1,5 +1,5 @@
 function bits = extractBits(imageBW, corners)
-  bits = zeros(1,1413);
+  bits = zeros(1,1464);
   b = 1;
   if (size(corners,1) == 4)
     A = corners(1,:); % upper left

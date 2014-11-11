@@ -22,7 +22,9 @@ FIPs = findFIPs(imageBW, toleranceFactor);
 AP = findAP(imageBW, 0.3, FIPs);
 corners = getCorners(FIPs, AP);
 
-bits = extractBits(imageBW, corners)
+bits = extractBits(imageBW, corners);
+
+decodedMessage = readBits(bits);
 
 qr = extractQR(imageBW, FIPs, AP);
 
@@ -39,6 +41,4 @@ if ~isempty(windowTitle)
   figure;
   imshow(qr);
 end
-
-decodedMessage = 'http://www.k?pahus.se';
 end
