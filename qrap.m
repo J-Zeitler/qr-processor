@@ -22,6 +22,8 @@ FIPs = findFIPs(imageBW, toleranceFactor);
 AP = findAP(imageBW, 0.3, FIPs);
 corners = getCorners(FIPs, AP);
 
+bits = extractBits(imageBW, corners)
+
 qr = extractQR(imageBW, FIPs, AP);
 
 if ~isempty(windowTitle)
@@ -29,11 +31,11 @@ if ~isempty(windowTitle)
   imshow(originalImage);
   set(gcf,'name',windowTitle,'NumberTitle','off');
   hold on;
-  
+
   scatter(FIPs(:,2),FIPs(:,1),[],[1,0,0;1,1,0;0,1,0]);
   scatter(AP(2),AP(1),[],[0,0,1]);
   scatter(corners(:,2),corners(:,1),[],[0,1,1]);
-  
+
   figure;
   imshow(qr);
 end
