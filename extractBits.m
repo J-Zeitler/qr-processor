@@ -22,37 +22,18 @@ function bits = extractBits(imageBW, corners)
           (y > 8 || x < 34) && ... % not in second control point
           (y < 34 || x > 8) && ... % not in third control point
           (y < 33 || x < 33 || y > 37 || x > 37) % not in fourth control point
-           
-          zone = [x-1,y-1; x,y-1; x,y; x-1,y] / 41;
-          transformedZone = zeros(4,2);
-          
-          imshow(imageBW);
-          
-          for z = 1:4
-            c = zone(z,:);
-            AB = (1-c(1))*A + c(1)*B;
-            CD = (1-c(1))*C + c(1)*D;
-            ABCD = (1-c(2))*AB + c(2)*CD;
-            transformedZone(z,:) = [ABCD(2) ABCD(1)];
-          end
-
-          mask = zeros(size(imageBW));
-          shapeInserter = vision.ShapeInserter('Shape', 'Polygons', 'Fill', true, 'FillColor', 'Custom', 'CustomFillColor', uint8(255));
-          polygon = int32([transformedZone(1,:) transformedZone(2,:) transformedZone(3,:) transformedZone(4,:)]);
-          mask = step(shapeInserter, mask, polygon);
-          
-          maskedValues = mask .* imageBW;
-          imshow(mask/2 + imageBW/2);
-          meanIntensity = sum(maskedValues(:)) / sum(mask(:));
-          bit = round(meanIntensity);
+        
+          px = (x - 0.5) / 41;
+          py = (y - 0.5) / 41;
+          AB = (1-px)*A + px*B;
+          CD = (1-px)*C + px*D;
+          ABCD = (1-py)*AB + py*CD;
+          transformedPoint = ABCD;
+          pyi = round(transformedPoint(1));
+          pxi = round(transformedPoint(2));
+          bit = imageBW(pyi,pxi);
           bits(b) = bit;
           b = b + 1;
-          
-          %imshow(imageBW);
-          %hold on;
-          %scatter(transformedZone(:,1),transformedZone(:,2),'ro');
-          %pause;
-         
         end
       end
     end
