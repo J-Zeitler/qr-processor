@@ -26,8 +26,6 @@ bits = extractBits(imageBW, corners);
 
 decodedMessage = readBits(bits);
 
-qr = extractQR(imageBW, FIPs, AP);
-
 if ~isempty(windowTitle)
   hold off;
   imshow(originalImage);
@@ -37,8 +35,5 @@ if ~isempty(windowTitle)
   scatter(FIPs(:,2),FIPs(:,1),[],[1,0,0;1,1,0;0,1,0]);
   scatter(AP(2),AP(1),[],[0,0,1]);
   scatter(corners(:,2),corners(:,1),[],[0,1,1]);
-
-  figure;
-  imshow(qr);
 end
 end
