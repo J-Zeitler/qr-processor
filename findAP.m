@@ -1,4 +1,5 @@
 function AP = findAP(imageBW, toleranceFactor, FIPs)
+  AP = [];
   if size(FIPs,1) == 3
     searchFactors = [25/34, 37/34];
 
@@ -22,10 +23,10 @@ function AP = findAP(imageBW, toleranceFactor, FIPs)
     xRange = x1:dx:x2;
 
     APCandidates = findAPCandidates(imageBW, toleranceFactor, yRange, xRange);
-    clusterPoint = findClusterCenter(APCandidates);
-    AP = findBlobCenter(imageBW, clusterPoint, true);
-  else
-    AP = [];
+    if (size(APCandidates,1) > 0)
+      clusterPoint = findClusterCenter(APCandidates);
+      AP = findBlobCenter(imageBW, clusterPoint, true);
+    end
   end
 end
 
