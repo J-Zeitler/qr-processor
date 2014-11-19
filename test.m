@@ -15,11 +15,8 @@ sets{7} = getImages('images/training/training_4/Hus_', 31:36, '.png');
 sets{8} = getImages('images/training/training_5/Hus_', 41:47, '.png');
 
 messages = cell(8,1);
-for c = 1:4
-  messages{c} = 'Byggbutiken online! URL: http://www.byggstommar.se';
-end
-for c = 5:8
-  messages{c} = 'Typ: Fastigheten Älmhult Jämnhult 1:28. Friliggande villa. Byggår 1980. Boarea ca 260 m², biarea ca 70 m². Areauppgifter enligt säljaren. 6 rum, varav 4 sovrum. Tomtarea 4 514 m².';
+for c = 1:8
+  messages{c} = correctStrings(c);
 end
 
 nSets = size(sets,1);
