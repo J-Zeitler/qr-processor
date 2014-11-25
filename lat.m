@@ -5,6 +5,8 @@ function imageBW = lat(imageGray)
 
   [height, width] = size(imageGray);
   windowSize = round((height + width)/100);
+  varianceThreshold = 100;
+  maxExpandIter = 3;
 
   for y = 1:windowSize:(height-1)
     for x = 1:windowSize:(width-1)
@@ -19,7 +21,7 @@ function imageBW = lat(imageGray)
       expUpperY = upperY;
       expUpperX = upperX;
       i = 0;
-      while (variance < 200 && i < 3)
+      while (variance < varianceThreshold && i < maxExpandIter)
         expLowerY = max(1, expLowerY - windowSize);
         expUpperY = min(height, expUpperY + windowSize);
         expLowerX = max(1, expLowerX - windowSize);
@@ -29,7 +31,7 @@ function imageBW = lat(imageGray)
         variance = var(double(expImg(:)));
         i = i + 1;
       end
-      if (variance < 200)
+      if (variance < varianceThreshold)
         subLevel = graythresh(imageGray);
       end
       subBin = im2bw(subImg,subLevel);

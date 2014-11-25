@@ -22,6 +22,7 @@ function decodedMessage = qrap(originalImage, windowTitle)
   if ~succeeded
     % If message extraction with otsu's failed, try LAT
     imageBW = lat(imageGray);
+    imshow(imageBW);
     decodedMessage = extractMessage(imageBW, toleranceFactor, windowTitle);
   end
 end
