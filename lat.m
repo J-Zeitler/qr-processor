@@ -5,7 +5,7 @@ function imageBW = lat(imageGray)
 
   [height, width] = size(imageGray);
   windowSize = round((height + width)/100);
-  varianceThreshold = 100;
+  varianceThreshold = 175;
   maxExpandIter = 3;
 
   for y = 1:windowSize:(height-1)
